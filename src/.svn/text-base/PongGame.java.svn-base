@@ -1,0 +1,86 @@
+import java.util.Date;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: jason
+ * Date: 15/12/2011
+ * Time: 13:45
+ * To change this template use File | Settings | File Templates.
+ */
+public class PongGame {
+    public final int GameHeight = 480;
+    public final int GameWidth = 640;
+    
+    public Paddle LeftPaddle;
+    public Paddle RightPaddle;
+    public Puck Puck;
+    
+    private Date previousTime;
+    private Side SideToWin;
+
+    public PongGame(){
+        Reset();
+        SideToWin = Side.None;
+        previousTime = new Date();
+    }
+
+    public void Reset()
+    {
+        LeftPaddle = new Paddle(this, Side.Left);
+        RightPaddle = new Paddle(this, Side.Right);
+        Puck = new Puck(this);
+    }
+
+    public void RunGameLoop(){
+        CheckForWinner();
+        CheckNextMoveForBoundaryCollision();
+        MovePuck();
+        CheckForPaddleCollision();
+    }
+
+    private void CheckForPaddleCollision() {
+        if((Puck.posX <= (this.LeftPaddle.posX+this.LeftPaddle.Width)) && (Puck.posY >= this.LeftPaddle.posY) && ((Puck.posY+Puck.Height) <= this.LeftPaddle.posY+this.LeftPaddle.Height))
+        {
+            //Paddle collision left paddle
+            Puck.speedX = Puck.speedX * -1;
+        }
+
+        if(((Puck.posX+Puck.Width) >= this.RightPaddle.posX) && (Puck.posY >= this.RightPaddle.posY) && ((Puck.posY+Puck.Height) <= this.RightPaddle.posY+this.RightPaddle.Height))
+        {
+            Puck.speedX = Puck.speedX * -1;
+        }
+    }
+
+    private void MovePuck() {
+        Puck.posX += Puck.speedX;
+        Puck.posY += Puck.speedY;
+    }
+
+    private void CheckNextMoveForBoundaryCollision(){
+        //Check for collisions with the top and bottom boundaries of the game area.
+        if((Puck.posY+Puck.speedY+Puck.Height) >= GameHeight){
+            Puck.speedY = Puck.speedY * -1;
+        }
+
+        if((Puck.posY+Puck.speedY) <= 0)
+        {
+            Puck.speedY = Puck.speedY * -1;
+        }
+    }
+
+    private void CheckForWinner() {
+        Date currentTime = new Date();
+        if(previousTime.getHours() != currentTime.getHours())
+        {
+            SideToWin = Side.Left;
+        }
+        else if(previousTime.getMinutes() != currentTime.getMinutes())
+        {
+            SideToWin = Side.Right;
+        }
+        else
+        {
+            SideToWin = Side.None;
+        }
+    }
+}

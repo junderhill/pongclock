@@ -1,0 +1,34 @@
+/**
+ * Created by IntelliJ IDEA.
+ * User: jason
+ * Date: 15/12/2011
+ * Time: 13:45
+ * To change this template use File | Settings | File Templates.
+ */
+public class Paddle {
+
+    public int posX;
+    public int posY;
+
+    public int speedY;
+
+    public final int Height = 60;
+    public final int Width = 10;
+
+    public Paddle(PongGame pongGame, Side side) {
+        speedY = 0;
+        switch(side)
+        {
+            case Left:
+                posX = 10;
+                posY = pongGame.GameHeight;
+                break;
+            case Right:
+                posX = pongGame.GameWidth - Width - 10;
+                posY = pongGame.GameHeight;
+                break;
+        }
+
+
+    }
+}

@@ -1,0 +1,30 @@
+/**
+ * Created by IntelliJ IDEA.
+ * User: jason
+ * Date: 15/12/2011
+ * Time: 13:45
+ * To change this template use File | Settings | File Templates.
+ */
+public class Puck {
+    public int posX;
+    public int posY;
+    
+    public int speedX;
+    public int speedY;
+
+    public final int Height = 10;
+    public final int Width = 10;
+
+
+    public Puck(PongGame pongGame)
+    {
+        //Set starting position.
+        posX = pongGame.GameWidth/2;
+        posY = pongGame.GameHeight/2;
+
+        //Starting Speed
+
+    }
+
+
+}

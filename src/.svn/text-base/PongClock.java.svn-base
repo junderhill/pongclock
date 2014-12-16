@@ -1,0 +1,40 @@
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: jason
+ * Date: 15/12/2011
+ * Time: 13:44
+ * To change this template use File | Settings | File Templates.
+ */
+public class PongClock {
+    private static PongGame game;
+    
+    public static void main(String[] args) throws InterruptedException {
+        game = new PongGame();
+
+        JFrame mainWindow = CreateWindow();
+
+        while(true)
+        {
+            game.RunGameLoop();
+            PaintDisplay(mainWindow.getGraphics());
+            Thread.sleep(30);
+        }
+    }
+
+    private static void PaintDisplay(Graphics g){
+
+    }
+    
+    private static JFrame CreateWindow() {
+        JFrame mainWindow = new JFrame("Pong Clock");
+        int windowHeight = game.GameHeight;
+        int windowWidth = game.GameWidth;
+        mainWindow.setBounds(0,0,windowWidth,windowHeight);
+        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+        return mainWindow;
+    }
+}
